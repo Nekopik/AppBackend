@@ -21,32 +21,22 @@ namespace MvcApp.Controllers
             this.signInManager = signInManager;
         }
 
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return Ok(User); //have to change
-        }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> Register(SignUpUserModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = model.FirstName, Email = model.Email };
+                var user = new IdentityUser { UserName = model.Email, Email = model.Email };
                 var result = await userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
-                    await signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("index", "home");
+                    return Ok();
                 }
-
-                foreach(var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
+                return BadRequest();
             }
-            return Ok(User); //have to change
+            return BadRequest(); //have to change
         }
 
     }
