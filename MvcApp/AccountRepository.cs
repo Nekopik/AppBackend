@@ -20,7 +20,7 @@ namespace MvcApp
             var user = new IdentityUser()
             {
                 Email = userModel.Email,
-                UserName = userModel.Email
+                UserName = userModel.FirstName
                 
             };
             var result = await _userManager.CreateAsync(user, userModel.Password);

@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using MvcApp.Models;
+using MvcApp.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,38 +11,43 @@ namespace MvcApp.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IAccountRepository _accountRepository;
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly SignInManager<IdentityUser> signInManager;
 
-        public AccountController(IAccountRepository accountRepository)
+        public AccountController(UserManager<IdentityUser> userManager,
+                                  SignInManager<IdentityUser> signInManager)
         {
-            _accountRepository = accountRepository;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
-        [Route("signup")]
-        public IActionResult Signup()
+        [HttpGet]
+        public IActionResult Register()
         {
-            return View();
+            return Ok(User); //have to change
         }
 
-        [Route("signup")]
         [HttpPost]
-        public async Task<IActionResult> Signup(SignUpUserModel userModel)
+        public async Task<IActionResult> Register(SignUpUserModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                //write code
-                var result = await _accountRepository.CreateUserAsync(userModel);
-                if (!result.Succeeded)
+                var user = new IdentityUser { UserName = model.FirstName, Email = model.Email };
+                var result = await userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
                 {
-                    foreach (var errorMessage in result.Errors)
-                    {
-                        ModelState.AddModelError("", errorMessage.Description);
-                    }
+                    await signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("index", "home");
                 }
 
-                ModelState.Clear();
+                foreach(var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
             }
-            return View();
+            return Ok(User); //have to change
         }
+
     }
 }
