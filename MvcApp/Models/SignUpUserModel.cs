@@ -18,6 +18,10 @@ namespace MvcApp.Models
         [EmailAddress(ErrorMessage ="Please enter a valid email")]
         public string Email { get; set; }
 
+        //płeć
+
+        //data urodzenia
+
         [Required(ErrorMessage = "Please enter your password")]
         [Compare("ConfirmPassword", ErrorMessage = "Password does not match")]
         public string Password { get; set; }

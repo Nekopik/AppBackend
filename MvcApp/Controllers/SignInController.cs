@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace MvcApp.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class SignInController : Controller
     {
         private readonly UserManager<IdentityUser> userManager;
@@ -22,7 +24,7 @@ namespace MvcApp.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("register")]
         public async Task<IActionResult> Register(SignUpUserModel model)
         {
             if (ModelState.IsValid)

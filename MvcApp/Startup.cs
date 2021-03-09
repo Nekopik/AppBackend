@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using MvcApp.Models;
 using MvcApp.Classes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Text; //
+using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -62,6 +62,7 @@ namespace MvcApp
 
             services.AddSingleton<IJwtAuthManager, JwtAuthManager>();
             services.AddHostedService<JwtRefreshTokenCache>();
+            services.AddScoped<IUserService, UserService>();
             
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -88,6 +89,10 @@ namespace MvcApp
             }
 
             app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
