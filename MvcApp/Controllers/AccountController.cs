@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace MvcApp.Controllers
 {
@@ -60,7 +61,7 @@ namespace MvcApp.Controllers
         }
 
         [HttpGet("user")]
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult GetCurrentUser()
         {
             return Ok(new LoginResult
@@ -72,7 +73,7 @@ namespace MvcApp.Controllers
         }
 
         [HttpPost("logout")]
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult Logout()
         {
             // optionally "revoke" JWT token on the server side --> add the current token to a block-list
@@ -85,7 +86,7 @@ namespace MvcApp.Controllers
         }
 
         [HttpPost("refresh-token")]
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
         {
             try

@@ -42,21 +42,21 @@ namespace MvcApp
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+          
             }).AddJwtBearer(x =>
             {
-                x.RequireHttpsMetadata = true;
-                x.SaveToken = true;
+                x.RequireHttpsMetadata = false;
+                //x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = true,
+                    ValidateIssuer = false,
                     ValidIssuer = jwtTokenConfig.Issuer,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtTokenConfig.Secret)),
-                    ValidAudience = jwtTokenConfig.Audience,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.FromMinutes(1)
+                    //ValidAudience = jwtTokenConfig.Audience,
+                    ValidateAudience = false,
+                    //ValidateLifetime = false,
+                    //ClockSkew = TimeSpan.FromMinutes(1)
                 };
             });
 
@@ -74,8 +74,62 @@ namespace MvcApp
                     Description = "A simple example ASP.NET Core Web API",
                     
                 });
+
+                var securityScheme = new OpenApiSecurityScheme
+                {
+                    Name = "JWT Authentication",
+                    Description = "Enter JWT Bearer token",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                    
+                };
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    In = ParameterLocation.Header
+                });
+                //c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {securityScheme, new string[] { }}
+                });
+
+                var basicSecurityScheme = new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "basic",
+                    Reference = new OpenApiReference { Id = "BasicAuth", Type = ReferenceType.SecurityScheme}
+                };
+
+                c.AddSecurityDefinition(basicSecurityScheme.Reference.Id, basicSecurityScheme);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {basicSecurityScheme, new string[] { }}
+                });
             });
 
+            /* services.AddSwaggerGen(opt =>
+            {
+                opt.AddSecurityDefinition("oauth2", new 
+                {
+                    Description = "Standard Authorization",
+                    In = "header",
+                    Name = "Authorization",
+                    Type = "apiKey"
+                });
+            });
+            */
+            
             services.AddDbContext<ChatContext>(opt =>
                                                 opt.UseInMemoryDatabase("ChatMessageList"));
         }

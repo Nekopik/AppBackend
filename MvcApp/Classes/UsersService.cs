@@ -19,6 +19,7 @@ namespace MvcApp.Classes
         {
             { "test1", "password1" },
             { "test2", "password2" },
+            { "newuser", "Haslo123" },
             { "admin", "securePassword" }
         };
         // dodanie bazy danych

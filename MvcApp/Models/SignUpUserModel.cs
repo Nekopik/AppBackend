@@ -14,13 +14,15 @@ namespace MvcApp.Models
         [Required(ErrorMessage = "Please enter your last name")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage ="Please enter your email")]
-        [EmailAddress(ErrorMessage ="Please enter a valid email")]
+        [Required(ErrorMessage = "Please enter your email")]
+        [EmailAddress(ErrorMessage = "Please enter a valid email")]
         public string Email { get; set; }
 
-        //płeć
+        [Required]
+        public string Gender { get; set; }
 
-        //data urodzenia
+        [Required]
+        public DateTime Date { get; set; }
 
         [Required(ErrorMessage = "Please enter your password")]
         [Compare("ConfirmPassword", ErrorMessage = "Password does not match")]
