@@ -91,9 +91,9 @@ namespace BazaDancyhAPI.Models
 
             modelBuilder.Entity<Message>(entity =>
             {
-                entity.HasNoKey();
 
                 entity.ToTable("messages");
+                entity.HasKey("Id");
 
                 entity.Property(e => e.AttachmentThumbUrl)
                     .IsRequired()
