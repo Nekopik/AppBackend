@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace BazaDancyhAPI.Models
+namespace MvcApp.Models
 {
     public partial class Contact
     {

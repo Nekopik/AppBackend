@@ -118,6 +118,9 @@ namespace MvcApp
                 });
             });
 
+            services.AddDbContext<praktykiv2Context>(
+                opt => opt.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+
             /* services.AddSwaggerGen(opt =>
             {
                 opt.AddSecurityDefinition("oauth2", new 

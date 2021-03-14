@@ -5,12 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using BazaDancyhAPI.Models;
+using MvcApp.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
-namespace BazaDancyhAPI.Controllers
+
+namespace MvcApp.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)] //good place?
     [ApiController]
+
+
     public class ContactsController : ControllerBase
     {
         private readonly praktykiv2Context _context;

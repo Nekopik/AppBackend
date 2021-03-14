@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace BazaDancyhAPI.Models
+namespace MvcApp.Models
 {
     public partial class praktykiv2Context : DbContext
     {
