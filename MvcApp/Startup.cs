@@ -129,9 +129,6 @@ namespace MvcApp
                 });
             });
             */
-            
-            services.AddDbContext<ChatContext>(opt =>
-                                                opt.UseInMemoryDatabase("ChatMessageList"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
