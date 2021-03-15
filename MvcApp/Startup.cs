@@ -119,7 +119,7 @@ namespace MvcApp
             });
 
             services.AddDbContext<praktykiv2Context>(
-                opt => opt.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+                opt => opt.UseSqlServer("name=ConnectionStrings:db"));
 
             /* services.AddSwaggerGen(opt =>
             {
