@@ -1,4 +1,6 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -6,16 +8,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace MvcApp.Models
 {
-    public partial class praktykiv2Context : DbContext
+    public partial class praktykiv2Context : IdentityDbContext<IdentityUser>
     {
-        public praktykiv2Context()
-        {
-        }
 
-        public praktykiv2Context(DbContextOptions<praktykiv2Context> options)
-            : base(options)
-        {
-        }
+        public praktykiv2Context(DbContextOptions<praktykiv2Context> options) : base(options) { }
+
 
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<Conversation> Conversations { get; set; }

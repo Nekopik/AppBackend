@@ -14,10 +14,12 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using MvcApp.Models;
 using MvcApp.Classes;
+using MvcApp.Controllers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
 
 namespace MvcApp
 {
@@ -63,7 +65,7 @@ namespace MvcApp
             services.AddSingleton<IJwtAuthManager, JwtAuthManager>();
             services.AddHostedService<JwtRefreshTokenCache>();
             services.AddScoped<IUserService, UserService>();
-            
+            services.AddIdentityCore<IdentityUser>().AddEntityFrameworkStores<praktykiv2Context>();
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {

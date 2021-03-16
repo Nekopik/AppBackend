@@ -21,16 +21,14 @@ namespace MvcApp.Models
         [Required]
         public string Gender { get; set; }
 
-        [Required]
-        public DateTime Date { get; set; }
-
         [Required(ErrorMessage = "Please enter your password")]
-        [Compare("ConfirmPassword", ErrorMessage = "Password does not match")]
+        [StringLength(24, MinimumLength = 8)]
+        //[Compare("ConfirmPassword", ErrorMessage = "Password does not match")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Please confirm your password")]
+        /*[Required(ErrorMessage = "Please confirm your password")]
         public string ConfirmPassword { get; set; }
-
+        */
 
     }
 }
