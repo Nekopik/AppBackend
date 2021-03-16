@@ -144,11 +144,12 @@ namespace MvcApp
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
+
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

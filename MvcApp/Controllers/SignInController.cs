@@ -11,7 +11,7 @@ namespace MvcApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SignInController : Controller
+    public class SignInController : ControllerBase
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
