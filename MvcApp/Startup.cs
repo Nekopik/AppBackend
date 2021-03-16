@@ -65,7 +65,7 @@ namespace MvcApp
             services.AddSingleton<IJwtAuthManager, JwtAuthManager>();
             services.AddHostedService<JwtRefreshTokenCache>();
             services.AddScoped<IUserService, UserService>();
-            services.AddIdentityCore<IdentityUser>().AddEntityFrameworkStores<praktykiv2Context>();
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<praktykiv2Context>();
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
