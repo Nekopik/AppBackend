@@ -21,7 +21,7 @@ namespace MvcApp.Models
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<Participant> Participants { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
-        public virtual DbSet<IdentityUser> Users { get; set; }
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
