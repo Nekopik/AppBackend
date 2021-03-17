@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 #nullable disable
@@ -17,6 +18,6 @@ namespace MvcApp.Models
         public int UsersId { get; set; }
 
         public virtual Conversation Conversation { get; set; }
-        public virtual User Users { get; set; }
+        public virtual IdentityUser Users { get; set; }
     }
 }
