@@ -10,12 +10,10 @@ namespace MvcApp.Models
 {
     public partial class praktykiv2Context : IdentityDbContext<IdentityUser>
     {
-        public praktykiv2Context()
+    public praktykiv2Context(DbContextOptions<praktykiv2Context> options) : base(options)
         {
-
+        
         }
-
-        public praktykiv2Context(DbContextOptions<praktykiv2Context> options) : base(options) { }
 
 
         public virtual DbSet<Contact> Contacts { get; set; }
